@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <stdlib.h>
+ 
+char s[92];
+long long rank,count[92];
+ 
+void init(){
+	count[0]=1;
+	count[1]=2;
+	rank=1;
+	int fact=2;
+	while(fact<90){
+		count[fact]=count[fact-1]+count[fact-2];
+		fact++;
+	}
+	return;
+}
+ 
+long long protean(int n){
+	int i;
+	rank=0;
+	for(i=0;i<n;++i)
+		if(s[i]=='1')
+			rank+=count[n-i-1];
+	return rank;
+}
+ 
+int main() {
+	int t,total;
+	scanf("%d",&t);
+	total=t;
+	init();
+	while(t--){
+		scanf("%s",s);
+		int n;
+		for(n=0;s[n];++n);
+		printf("Case %d: %lld\n",(total-t),protean(n));
+	}
+	return 0;
+}
